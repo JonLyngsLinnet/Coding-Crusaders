@@ -21,6 +21,9 @@ export function APITester() {
     }
   };
 
+  function CreatePost(){
+
+  }
   return (
     <div className="api-tester">
       <form onSubmit={testEndpoint} className="endpoint-row">
