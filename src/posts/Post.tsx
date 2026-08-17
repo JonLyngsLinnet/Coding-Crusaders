@@ -25,7 +25,7 @@ export function Posts() {
         {
             posts.map(p => {
                 return <div>
-                    {JSON.stringify(p)}
+                    {JSON.stringify(p.title)}
                     <DeletePostButton key={p.id} posts={p}
                                       removePost={removePost}>
 
