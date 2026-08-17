@@ -3,6 +3,7 @@ import "./index.css";
 
 import logo from "./logo.svg";
 import reactLogo from "./react.svg";
+import {Posts} from "@/posts/Post.tsx";
 
 export function App() {
   return (
@@ -17,6 +18,7 @@ export function App() {
         Edit <code>src/App.tsx</code> and save to test HMR
       </p>
       <APITester />
+        <Posts />
     </div>
   );
 }
