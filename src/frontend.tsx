@@ -1,19 +1,21 @@
-/**
- * This file is the entry point for the React app, it sets up the root
- * element and renders the App component to the DOM.
- *
- * It is included in `src/index.html`.
- */
-
-import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import { App } from "./App";
-
+import {createBrowserRouter, RouterProvider} from "react-router";
+import {Posts} from "@/posts/Post.tsx";
+import {PostDetails} from "@/posts/PostDetails.tsx";
 const elem = document.getElementById("root")!;
 const app = (
-  <StrictMode>
-    <App />
-  </StrictMode>
+    <>
+        <RouterProvider router={createBrowserRouter([
+            {
+                path: '/',
+                element: <Posts />,
+                children: [{
+                        path: '/posts/id',
+                        element: <PostDetails />
+                    }]}
+
+        ])} />
+    </>
 );
 
 // https://bun.com/docs/bundler/hot-reloading#import-meta-hot-data

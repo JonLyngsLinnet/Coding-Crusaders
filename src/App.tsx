@@ -1,8 +1,4 @@
-import { APITester } from "./APITester";
 import "./index.css";
-
-import logo from "./logo.svg";
-import reactLogo from "./react.svg";
 import {Posts} from "@/posts/Post.tsx";
 
 export function App() {

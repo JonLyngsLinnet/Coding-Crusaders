@@ -1,5 +1,6 @@
 import {useEffect, useState} from "react";
 import {DeletePostButton} from "@/Buttons/DeletePostButton.tsx";
+import {Link} from "react-router";
 
 export function Posts() {
     const [posts, setPosts] = useState<Post[]>([])
@@ -26,13 +27,9 @@ export function Posts() {
             posts.map(p => {
                 return <div>
                     {JSON.stringify(p.title)}
-                    <DeletePostButton key={p.id} posts={p}
-                                      removePost={removePost}>
-
-                    </DeletePostButton>
+                    <DeletePostButton key={p.id} posts={p} removePost={removePost}></DeletePostButton>
+                    <p>{p?.body}</p>
                 </div>
-
-
             })
         }
     </div>;
