@@ -2,11 +2,14 @@ import {useEffect, useState} from "react";
 import {DeletePostButton} from "@/Buttons/DeletePostButton.tsx";
 import {Link} from "react-router";
 import type {Post} from "@/Models/PostInterface.tsx";
+import {CreatePost} from "@/posts/CreatePost.tsx";
 
 export function Posts() {
     const [posts, setPosts] = useState<Post[]>([])
 
     useEffect(() => {
+        if(posts.length > 0)
+            return;
         fetch('https://dummyjson.com/posts')
             .then(res => res.json())
             .then((json) =>{
@@ -25,14 +28,15 @@ export function Posts() {
 
     return <div>
         {
-            posts.map(p => {
-                return <div key={p.id}>
-                    <Link to={`/posts/${p.id}`}>
-                        <h3>{p.title}</h3>
-                    </Link>
-                    <DeletePostButton posts={p} removePost={removePost}></DeletePostButton>
-                </div>
-            })
+            <CreatePost onPostCreated={(post) => setPosts([post, ...posts])} />}
+        {posts.map(p => {
+            return <div key={p.id}>
+                <Link to={`/posts/${p.id}`} state={{post: p}}>
+                    <h3>{p.title}</h3>
+                </Link>
+                <DeletePostButton posts={p} removePost={removePost}></DeletePostButton>
+            </div>
+        })
         }
     </div>;
 }
