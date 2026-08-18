@@ -1,6 +1,7 @@
 import {useEffect, useState} from "react";
 import {DeletePostButton} from "@/Buttons/DeletePostButton.tsx";
 import {Link} from "react-router";
+import type {Post} from "@/Models/PostInterface.tsx";
 
 export function Posts() {
     const [posts, setPosts] = useState<Post[]>([])
@@ -30,7 +31,6 @@ export function Posts() {
                         <h3>{p.title}</h3>
                     </Link>
                     <DeletePostButton posts={p} removePost={removePost}></DeletePostButton>
-                    <p>{p?.body}</p>
                 </div>
             })
         }
@@ -38,29 +38,24 @@ export function Posts() {
 }
 
 
-export interface Root {
-    posts: Post[]
-    total: number
-    skip: number
-    limit: number
-}
 
-export interface Post {
-    id: number
-    title: string
-    body: string
-    tags: string[]
-    reactions: Reactions
-    views: number
-    userId: number
-}
 
-export interface Reactions {
-    likes: number
-    dislikes: number
-}
 
 export interface MyChildComponentProps {
     posts: Post,
     removePost: (id: number) => void
+}
+
+export interface Comment {
+    id: number
+    body: string
+    postId: number
+    likes: number
+    user: User
+}
+
+export interface User {
+    id: number
+    username: string
+    fullName: string
 }

@@ -1,6 +1,7 @@
 import {useParams} from "react-router";
 import {useEffect, useState} from "react";
-import type {Post} from "./Post"; // adjust import path to wherever Post is defined
+import type {Post} from "@/Models/PostInterface.tsx";
+
 
 export function PostDetails() {
     const {id} = useParams();
@@ -14,10 +15,18 @@ export function PostDetails() {
 
     if (!post) return <p>Loading...</p>;
 
+    function getPostComments(id: number){
+        const [comment, setComment] = useState()
+
+        fetch(`https://dummyjson.com/posts/${id}/comments`)
+            .then(res => res.json())
+    }
+
     return (
         <div>
             <h1>{post.title}</h1>
             <p>{post.body}</p>
+            <p></p>
         </div>
     )
 }
