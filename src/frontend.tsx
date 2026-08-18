@@ -8,11 +8,11 @@ const app = (
         <RouterProvider router={createBrowserRouter([
             {
                 path: '/',
-                element: <Posts />,
-                children: [{
-                        path: '/posts/id',
+                element: <Posts/>,
+            },{
+                        path: '/posts/:id',
                         element: <PostDetails />
-                    }]}
+                    }
 
         ])} />
     </>
