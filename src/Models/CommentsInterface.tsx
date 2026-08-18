@@ -1,4 +1,5 @@
-import type {User} from "@/posts/Post.tsx";
+import type {User} from "@/Models/UserInterface.tsx";
+
 
 export interface Comment {
     id: number

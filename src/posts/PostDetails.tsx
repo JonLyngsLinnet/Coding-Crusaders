@@ -1,32 +1,40 @@
-import {useParams} from "react-router";
+import {Link, useParams} from "react-router";
 import {useEffect, useState} from "react";
 import type {Post} from "@/Models/PostInterface.tsx";
-
+import type {Comment} from "@/Models/CommentsInterface.tsx";
 
 export function PostDetails() {
     const {id} = useParams();
     const [post, setPost] = useState<Post | null>(null);
+    const [comments, setComments] = useState<Comment[]>([]);
 
     useEffect(() => {
         fetch(`https://dummyjson.com/posts/${id}`)
             .then(res => res.json())
-            .then((json) => setPost(json));
+            .then(setPost);
+
+        fetch(`https://dummyjson.com/posts/${id}/comments`)
+            .then(res => res.json())
+            .then((json: { comments: Comment[] }) => setComments(json.comments));
     }, [id]);
 
     if (!post) return <p>Loading...</p>;
 
-    function getPostComments(id: number){
-        const [comment, setComment] = useState()
-
-        fetch(`https://dummyjson.com/posts/${id}/comments`)
-            .then(res => res.json())
-    }
-
     return (
         <div>
+            <Link to="/">← Back to posts</Link>
             <h1>{post.title}</h1>
             <p>{post.body}</p>
-            <p></p>
+
+            <h2>Comments</h2>
+            {comments.length === 0 && <p>No comments yet.</p>}
+            <ul>
+                {comments.map(c => (
+                    <li key={c.id}>
+                        <strong>{c.user.username}</strong>: {c.body}
+                    </li>
+                ))}
+            </ul>
         </div>
     )
 }
