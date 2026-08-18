@@ -1,4 +1,4 @@
-import {Link, useParams, useLocation} from "react-router";
+import {Link, useParams, useLocation, useNavigate} from "react-router";
 import {useEffect, useState} from "react";
 import type {Post} from "@/Models/PostInterface.tsx";
 import type {Comment} from "@/Models/CommentsInterface.tsx";
@@ -7,6 +7,7 @@ export function PostDetails() {
     const {id} = useParams();
     const location = useLocation();
     const passedPost = location.state?.post as Post | undefined;
+    const navigate = useNavigate()
 
     const [post, setPost] = useState<Post | null>(passedPost ?? null);
     const [comments, setComments] = useState<Comment[]>([]);
@@ -27,7 +28,7 @@ export function PostDetails() {
 
     return (
         <div>
-            <Link to="/">← Back to posts</Link>
+            <button onClick={() => navigate('/')}> Back to posts</button>
             <h1>{post.title}</h1>
             <p>{post.body}</p>
 

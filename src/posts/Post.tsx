@@ -3,11 +3,17 @@ import {DeletePostButton} from "@/Buttons/DeletePostButton.tsx";
 import {Link} from "react-router";
 import type {Post} from "@/Models/PostInterface.tsx";
 import {CreatePost} from "@/posts/CreatePost.tsx";
+import {atom, useAtom} from "jotai";
+
+export const AllPosts = atom<Post[]>([])
 
 export function Posts() {
-    const [posts, setPosts] = useState<Post[]>([])
+    console.log("rendering posts")
+
+    const [posts, setPosts] = useAtom(AllPosts)
 
     useEffect(() => {
+        console.log("executedd")
         if(posts.length > 0)
             return;
         fetch('https://dummyjson.com/posts')
@@ -16,7 +22,7 @@ export function Posts() {
                 setPosts(json.posts)
             })
 
-    }, []);
+    }, [posts]);
 
 
 
