@@ -1,11 +1,12 @@
-import type {ReactionsInterface} from "@/Models/ReactionsInterface.ts";
+import type {Reactions} from "@/Models/ReactionsInterface.ts";
+import type {User} from "@/Models/UserInterface.ts";
 
 export interface Post {
     id: number
     title: string
     body: string
     tags: string[]
-    reactions: ReactionsInterface
+    reactions: Reactions
     views: number
     userId: number
 }

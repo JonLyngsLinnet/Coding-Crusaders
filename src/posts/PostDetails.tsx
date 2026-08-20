@@ -2,6 +2,7 @@ import {Link, useParams, useLocation, useNavigate} from "react-router";
 import {useEffect, useState} from "react";
 import type {Post} from "@/Models/PostInterface.ts";
 import type {Comment} from "@/Models/CommentsInterface.ts";
+import type {Reactions} from "@/Models/ReactionsInterface.ts";
 
 export function PostDetails() {
     const {id} = useParams();
@@ -11,26 +12,30 @@ export function PostDetails() {
 
     const [post, setPost] = useState<Post | null>(passedPost ?? null);
     const [comments, setComments] = useState<Comment[]>([]);
+    const [reaction, setReaction] = useState<Reactions>();
 
     useEffect(() => {
-        if (!passedPost) {
-            fetch(`https://dummyjson.com/posts/${id}`)
-                .then(res => res.json())
-                .then(setPost);
-        }
+            if (!passedPost) {
+                fetch(`https://dummyjson.com/posts/${id}`)
+                    .then(res => res.json())
+                    .then(setPost);
+            }
 
-        fetch(`https://dummyjson.com/posts/${id}/comments`)
-            .then(res => res.json())
-            .then((json: { comments?: Comment[] }) => setComments(json.comments ?? []));
-    }, [id]);
+            fetch(`https://dummyjson.com/posts/${id}/comments`)
+                .then(res => res.json())
+                .then((json: { comments?: Comment[] }) => setComments(json.comments ?? []));
+        }, [id]
+    );
 
     if (!post) return <p>Loading...</p>;
 
     return (
         <div className="post-detail">
             <button className="back-button" onClick={() => navigate('/')}>← Back to posts</button>
-            <h1 className="post-detail-title">{post.title}</h1>
+            <h1 className="post-detail-title">{post.userId} {post.title}</h1>
             <p className="post-detail-body">{post.body}</p>
+            <h6 className="reactions-heading">Views: {post.views} 👍 {post.reactions.likes} 👎 {post.reactions.dislikes}</h6>
+
 
             <h2 className="comments-heading">Comments</h2>
             {comments.length === 0 && <p className="no-comments">No comments yet.</p>}
