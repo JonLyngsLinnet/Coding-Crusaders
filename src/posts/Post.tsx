@@ -39,7 +39,7 @@ export function Posts() {
     }
 
     return <div>
-        <p>Søg efter en post:</p>
+        <p>Search for a post:</p>
         <SearchFunction onSearch={setSearching}/>
         <p></p>
         {<CreatePost onPostCreated={(post) => setPosts([post, ...posts])}/>}
