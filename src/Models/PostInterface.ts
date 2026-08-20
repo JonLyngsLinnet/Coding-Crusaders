@@ -1,4 +1,4 @@
-import type {ReactionsInterface} from "@/Models/ReactionsInterface.tsx";
+import type {ReactionsInterface} from "@/Models/ReactionsInterface.ts";
 
 export interface Post {
     id: number

@@ -1,6 +1,6 @@
-import type {MyChildComponentProps} from "@/posts/Post.tsx";
+import type {removeButtonProps} from "@/Models/ComponentProps.ts";
 
-export function DeletePostButton({posts, removePost}: MyChildComponentProps) {
+export function DeletePostButton({posts, removePost}: removeButtonProps) {
 
     return (
         <div>

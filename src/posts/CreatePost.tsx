@@ -1,5 +1,5 @@
 import {useState} from "react";
-import type {Post} from "@/Models/PostInterface.tsx";
+import type {Post} from "@/Models/PostInterface.ts";
 
 interface CreatePostProps {
     onPostCreated: (post: Post) => void;

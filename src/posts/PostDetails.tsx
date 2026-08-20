@@ -1,7 +1,7 @@
 import {Link, useParams, useLocation, useNavigate} from "react-router";
 import {useEffect, useState} from "react";
-import type {Post} from "@/Models/PostInterface.tsx";
-import type {Comment} from "@/Models/CommentsInterface.tsx";
+import type {Post} from "@/Models/PostInterface.ts";
+import type {Comment} from "@/Models/CommentsInterface.ts";
 
 export function PostDetails() {
     const {id} = useParams();

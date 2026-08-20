@@ -1,4 +1,4 @@
-import type {User} from "@/Models/UserInterface.tsx";
+import type {User} from "@/Models/UserInterface.ts";
 
 
 export interface Comment {

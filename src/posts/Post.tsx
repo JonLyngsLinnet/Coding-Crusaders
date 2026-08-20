@@ -1,41 +1,49 @@
 import {useEffect, useState} from "react";
 import {DeletePostButton} from "@/Buttons/DeletePostButton.tsx";
+import {SearchFunction} from "@/Components/SearchFunction.tsx"
 import {Link} from "react-router";
-import type {Post} from "@/Models/PostInterface.tsx";
+import type {Post} from "@/Models/PostInterface.ts";
 import {CreatePost} from "@/posts/CreatePost.tsx";
 import {atom, useAtom} from "jotai";
 
 export const AllPosts = atom<Post[]>([])
 
 export function Posts() {
-    console.log("rendering posts")
 
     const [posts, setPosts] = useAtom(AllPosts)
+    const [searching, setSearching] = useState<string>("")
+    const filteredPosts = posts.filter(searchForPost)
+
 
     useEffect(() => {
-        console.log("executedd")
-        if(posts.length > 0)
+        if (posts.length > 0)
             return;
         fetch('https://dummyjson.com/posts')
             .then(res => res.json())
-            .then((json) =>{
+            .then((json) => {
                 setPosts(json.posts)
             })
 
     }, [posts]);
 
+    function searchForPost(posts: Post) {
+        return (
+            posts.title.toLocaleLowerCase().includes(searching.toLocaleLowerCase())
+        )
+    }
 
-
-    function removePost (id: number){
-        const duplicate= [...posts];
-        const filteredArray = duplicate.filter ( p => p.id != id)
-        setPosts( filteredArray)
+    function removePost(id: number) {
+        const duplicate = [...posts];
+        const filteredArray = duplicate.filter(p => p.id != id)
+        setPosts(filteredArray)
     }
 
     return <div>
-        {
-            <CreatePost onPostCreated={(post) => setPosts([post, ...posts])} />}
-        {posts.map(p => {
+        <p>Søg efter en post:</p>
+        <SearchFunction onSearch={setSearching}/>
+        <p></p>
+        {<CreatePost onPostCreated={(post) => setPosts([post, ...posts])}/>}
+        {filteredPosts.map(p => {
             return <div key={p.id}>
                 <Link to={`/posts/${p.id}`} state={{post: p}}>
                     <h3>{p.title}</h3>
@@ -48,24 +56,3 @@ export function Posts() {
 }
 
 
-
-
-
-export interface MyChildComponentProps {
-    posts: Post,
-    removePost: (id: number) => void
-}
-
-export interface Comment {
-    id: number
-    body: string
-    postId: number
-    likes: number
-    user: User
-}
-
-export interface User {
-    id: number
-    username: string
-    fullName: string
-}
