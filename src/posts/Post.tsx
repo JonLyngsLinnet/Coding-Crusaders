@@ -38,20 +38,22 @@ export function Posts() {
         setPosts(filteredArray)
     }
 
-    return <div>
-        <p>Søg efter en post:</p>
-        <SearchFunction onSearch={setSearching}/>
-        <p></p>
-        {<CreatePost onPostCreated={(post) => setPosts([post, ...posts])}/>}
-        {filteredPosts.map(p => {
-            return <div key={p.id}>
-                <Link to={`/posts/${p.id}`} state={{post: p}}>
-                    <h3>{p.title}</h3>
-                </Link>
-                <DeletePostButton posts={p} removePost={removePost}></DeletePostButton>
-            </div>
-        })
-        }
+    return <div className="feed">
+        <div className="search-bar">
+            <p className="search-label">Search for a post</p>
+            <SearchFunction onSearch={setSearching}/>
+        </div>
+        <CreatePost onPostCreated={(post) => setPosts([post, ...posts])}/>
+        <div className="post-list">
+            {filteredPosts.map(p => {
+                return <div className="post-card" key={p.id}>
+                    <Link to={`/posts/${p.id}`} state={{post: p}} className="post-link">
+                        <h3 className="post-title">{p.title}</h3>
+                    </Link>
+                    <DeletePostButton posts={p} removePost={removePost}></DeletePostButton>
+                </div>
+            })}
+        </div>
     </div>;
 }
 

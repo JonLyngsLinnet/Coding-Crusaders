@@ -2,6 +2,7 @@ import { createRoot } from "react-dom/client";
 import {createBrowserRouter, RouterProvider} from "react-router";
 import {Posts} from "@/posts/Post.tsx";
 import {PostDetails} from "@/posts/PostDetails.tsx";
+import "./index.css";
 const elem = document.getElementById("root")!;
 const app = (
     <>

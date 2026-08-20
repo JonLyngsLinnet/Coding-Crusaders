@@ -27,17 +27,18 @@ export function PostDetails() {
     if (!post) return <p>Loading...</p>;
 
     return (
-        <div>
-            <button onClick={() => navigate('/')}> Back to posts</button>
-            <h1>{post.title}</h1>
-            <p>{post.body}</p>
+        <div className="post-detail">
+            <button className="back-button" onClick={() => navigate('/')}>← Back to posts</button>
+            <h1 className="post-detail-title">{post.title}</h1>
+            <p className="post-detail-body">{post.body}</p>
 
-            <h2>Comments</h2>
-            {comments.length === 0 && <p>No comments yet.</p>}
-            <ul>
+            <h2 className="comments-heading">Comments</h2>
+            {comments.length === 0 && <p className="no-comments">No comments yet.</p>}
+            <ul className="comment-list">
                 {comments.map(c => (
-                    <li key={c.id}>
-                        <strong>{c.user.username}</strong>: {c.body}
+                    <li className="comment-item" key={c.id}>
+                        <strong className="comment-author">{c.user.username}</strong>
+                        <span className="comment-body">{c.body}</span>
                     </li>
                 ))}
             </ul>
