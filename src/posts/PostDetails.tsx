@@ -34,7 +34,7 @@ export function PostDetails() {
             <button className="back-button" onClick={() => navigate('/')}>← Back to posts</button>
             <h1 className="post-detail-title">{post.userId} {post.title}</h1>
             <p className="post-detail-body">{post.body}</p>
-            <h6 className="reactions-heading">Views: {post.views} 👍 {post.reactions.likes} 👎 {post.reactions.dislikes}</h6>
+            <h6 className="reactions-heading">Views: {post.views ?? 0} 👍 {post.reactions?.likes ?? 0} 👎 {post.reactions?.dislikes ?? 0}</h6>
 
 
             <h2 className="comments-heading">Comments</h2>
